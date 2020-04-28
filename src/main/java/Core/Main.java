@@ -64,7 +64,7 @@ public class Main {
         }
 
         Table testTable = new Table(valueRange);
-        testTable.print();
+        testTable.export("./output.csv");
 
         return;
     }

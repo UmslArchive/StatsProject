@@ -1,4 +1,5 @@
 package Core;
+import java.io.*;
 
 import com.google.api.services.sheets.v4.model.ValueRange;
 
@@ -7,7 +8,7 @@ public class Table {
     private static final String DELIMITER = "|";
 
     private int rows, cols;
-    private String tableArray[][];
+    private String[][] tableArray;
 
 
     public Table() {
@@ -40,8 +41,37 @@ public class Table {
         }
     }
 
-    public void export() {
+    public void export(final String filepath) throws IOException {
 
+        //Delete file if already exists
+        File outputFile = new File(filepath);
+        outputFile.delete();
+        outputFile = null;
+
+        FileOutputStream fout = null;
+
+        try {
+            fout = new FileOutputStream(filepath);
+
+            for(int i = 0; i < rows; ++i) {
+                for(int j = 0; j < cols; ++j) {
+                    if(j != cols -1)
+                        fout.write((tableArray[i][j] + DELIMITER).getBytes());
+                    else
+                        fout.write(tableArray[i][j].getBytes());
+
+                }
+                if(i != rows - 1)
+                    fout.write("\n".getBytes());
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(fout != null)
+                fout.close();
+        }
     }
 
     public void print() {
@@ -54,7 +84,8 @@ public class Table {
                     System.out.print(tableArray[i][j]);
 
             }
-            System.out.println();
+            if(i != rows -1)
+                System.out.println();
         }
     }
 }
