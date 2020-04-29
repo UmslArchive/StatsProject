@@ -40,9 +40,15 @@ public class Analytics {
         }
     }
 
+    private static void addDemographicResponseConversionColumn() {
+
+    }
+
 }
 
 /**
  * TODO:
- *  * Cleanup data inconsistencies in free-response columns (textbox)
+ *  * Test Table addColumn() functionality.
+ *  * Cleanup data inconsistencies in free-response columns (textbox).
+ *  * Convert 'how often?' responses to integer values.
  * **/

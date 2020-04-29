@@ -8,6 +8,11 @@ public class Table {
     private static final int DEFAULT_TABLE_SZ = 17;
     private static final String DELIMITER = "|";
 
+    enum Direction {
+        LEFT,
+        RIGHT
+    }
+
     private int rows, cols;
 
     private String[][] tableArray;
@@ -115,6 +120,71 @@ public class Table {
         }
 
         tableArray[row][col] = value;
+    }
+
+    public int addEmptyColumnAt(final int column, final Direction direction) {
+        if(column < 0 || column > cols - 1) {
+            System.out.println("ERROR: Couldn't add new column");
+            return -1;
+        }
+
+        //Construct new tableArray w/ extra column:
+
+        //Determine new column's index
+        int extraColumnIndex;
+        if(direction.equals(Direction.LEFT)) {
+            extraColumnIndex = column;
+        }
+        else {
+            extraColumnIndex = column + 1;
+        }
+
+        //Allocate new table array
+        int columnsExtra = cols + 1;
+        String[][] extraColumnTableArray = new String[rows][columnsExtra];
+
+        //Copy the columns to new tableArray
+        String[] currentColumn = new String[rows];
+        for(int col = 0; col < columnsExtra; ++col) {
+
+            //Get the current column
+            if(col <= extraColumnIndex)
+                currentColumn = getColumn(col);
+            else
+                currentColumn = getColumn(col - 1);
+
+            //Copy each row of the currentColumn into the new tableArray
+            for(int row = 0; row < rows; ++row) {
+
+                if(col < extraColumnIndex) {
+                    extraColumnTableArray[row][col] = currentColumn[row];
+                }
+                else if(col == extraColumnIndex) {
+                    extraColumnTableArray[row][col] = "null";
+                }
+                else if( col > extraColumnIndex) {
+                    extraColumnTableArray[row][col] = currentColumn[row];
+                }
+            }
+        }
+
+        return extraColumnIndex;
+    }
+
+    private String[] getColumn(final int col) {
+        if(col < 0 || col > cols - 1) {
+            System.out.println("ERROR: Invalid column selection");
+            return null;
+        }
+
+        String[] columnArray = new String[rows];
+
+        //Copy the value of each row of the column into the columnArray
+        for(int row = 0; row < rows; ++rows) {
+            columnArray[row] = tableArray[col][row];
+        }
+
+        return columnArray;
     }
 
     public int rows() { return rows; }
