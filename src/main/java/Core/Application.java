@@ -1,8 +1,5 @@
 package Core;
 
-import Models.Demographics;
-import Models.MemeQuestionnaire;
-import Models.Participant;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -25,6 +22,10 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import Models.Demographics;
+import Models.MemeQuestionnaire;
+import Models.Participant;
 
 public class Application {
     private static final String APPLICATION_NAME = "Meme Responses";
