@@ -62,10 +62,22 @@ public class Application {
             participants.add(participant);
         }
 
-        Table testTable = new Table(valueRange);
-        testTable.export("./output.csv");
+        //Create a table from the value range for better workability
+        Table responses = new Table(valueRange);
 
-        return;
+        //Cleanup invalid responses
+        Analytics.cleanupData(responses);
+
+        //Test output
+        responses.export("output.csv");
+
+        //Create separate pivot table source tables for meme and demographic responses
+//        Table memeQuestionnaire_PivotTableSource = Analytics.createMemeQuestionnairePivotTable(rawData);
+//        Table demographics_PivotTableSource = Analytics.createDemographicPivotTable(rawData);
+
+        //Export tables as .csv files
+//        memeQuestionnaire_PivotTableSource.export("./memeQuestionnairePivotTableSource.csv");
+//        demographics_PivotTableSource.export("./demographicPivotTableSource.csv");
     }
 
     public static Participant buildParticipant(int which, final ValueRange table) throws IOException {
