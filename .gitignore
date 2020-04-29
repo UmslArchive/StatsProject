@@ -1,3 +1,5 @@
-*.gradle
-./.idea/*
-output.csv
+/.gradle/
+/.idea/
+/build/
+/tokens/
+/output.csv
