@@ -3,6 +3,3 @@
 build
 output.csv
 tokens
-*.lock
-
-*.bin
