@@ -1,41 +1,48 @@
 package Core;
 
 import static Models.MemeQuestionnaire.*;
+import static Models.Demographics.*;
 
 public class Analytics {
 
-    public static int convertResponse(String response) {
+    private String convertResponse(final String response) {
         switch (response) {
             case NO:
             case STRONGLY_DISAGREE:
-                return 0;
+            case NOT_AT_ALL:
+            case SOMETIMES:
+            case RARELY:
+                return "0";
 
             case YES:
             case DISAGREE:
-            case "1":
-                return 1;
+            case A_LOT:
+            case ALL_THE_TIME:
+                return "1";
 
             case NEUTRAL:
-            case "2":
-                return 2;
+                return "2";
 
             case AGREE:
-            case "3":
-                return 3;
+                return "3";
 
             case STRONGLY_AGREE:
-            case "4":
-                return 4;
+                return "4";
 
-            case "5": return 5;
-            case "6": return 6;
-            case "7": return 7;
-            case "8": return 8;
-            case "9": return 9;
-            case "10": return 10;
+            default:
+                return response;
         }
+    }
 
-        return -1;
+    public static void exportPivotTableSource(String outFilepath) {
+
     }
 
 }
+
+/**
+ * TODO:
+ *  * Re-encode how-often-social-media response
+ *  * Cleanup data inconsistencies in free-response columns (textbox)
+ *
+ * **/
