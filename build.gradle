@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'SheetsQuickstart'
+mainClassName = 'Application'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 version = '1.0'
