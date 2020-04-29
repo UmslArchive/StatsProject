@@ -4,10 +4,12 @@ import java.io.*;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 public class Table {
+
     private static final int DEFAULT_TABLE_SZ = 17;
     private static final String DELIMITER = "|";
 
     private int rows, cols;
+
     private String[][] tableArray;
 
 
@@ -88,4 +90,33 @@ public class Table {
                 System.out.println();
         }
     }
+
+    public int getColumnByFieldName(final String field) {
+        for(int col = 0; col < cols; ++col) {
+            if(tableArray[0][col].equals(field)) {
+                return col;
+            }
+        }
+        return -1;
+    }
+
+    public String getValue(int row, int col) {
+        if(row < 0 || row > rows - 1 || col < 0 || col > cols - 1) {
+            System.out.println("ERROR: Invalid table coordinate selection");
+            return "ERROR_OOB";
+        }
+
+        return tableArray[row][col];
+    }
+    public void setValue(int row, int col, String value) {
+        if(row < 0 || row > rows - 1 || col < 0 || col > cols - 1) {
+            System.out.println("ERROR: Invalid table coordinate selection");
+            return;
+        }
+
+        tableArray[row][col] = value;
+    }
+
+    public int rows() { return rows; }
+    public int cols() { return cols; }
 }
