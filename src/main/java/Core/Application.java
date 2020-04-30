@@ -55,6 +55,9 @@ public class Application {
         String tableRange = "Form Responses 1!A1:DY151";
         ValueRange valueRange = service.spreadsheets().values().get(spreadsheetId, tableRange).execute();
 
+        //Create a table from the value range for better workability
+        Table responses = new Table(valueRange);
+
         //Extract all participant data from valueRange
         List<Participant> participants = new ArrayList<>(FormInfo.numParticipants);
         for(int i = 0; i < FormInfo.numParticipants; ++i) {
