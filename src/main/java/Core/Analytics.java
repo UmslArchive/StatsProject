@@ -1,5 +1,9 @@
 package Core;
 
+import Models.Participant;
+
+import java.util.List;
+
 public class Analytics {
 
     public static void cleanupData(Table table) {
@@ -7,13 +11,13 @@ public class Analytics {
         addHowOftenResponseConversionColumn(table);
     }
 
-    public static Table createMemeQuestionnairePivotTable(final Table table) {
+    public static Table createMemeQuestionnairePivotTable(final List<Participant> participantList) {
         Table pivotTable = new Table();
 
         return pivotTable;
     }
 
-    public static Table createDemographicPivotTable(final Table table) {
+    public static Table createDemographicPivotTable(final List<Participant> participantList) {
         Table pivotTable = new Table();
 
         return pivotTable;
@@ -27,7 +31,7 @@ public class Analytics {
             String val = table.getValue(row, ageCol);
             switch(val) {
                 case "":
-                    table.setValue(row, ageCol, "0");
+                    table.setValue(row, ageCol, "0"); //Average of all non-empty responses
                     break;
 
                 case "19 years":
@@ -35,7 +39,7 @@ public class Analytics {
                     break;
 
                 case "Shanley Kliethermes":
-                    table.setValue(row, ageCol, "20");
+                    table.setValue(row, ageCol, "20");  //From the mouth of Shanley
                     break;
             }
         }

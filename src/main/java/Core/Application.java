@@ -58,18 +58,14 @@ public class Application {
         //Create a table from the value range for better workability
         Table responses = new Table(valueRange);
 
-        //Extract all participant data from valueRange
-        List<Participant> participants = new ArrayList<>(FormInfo.numParticipants);
-        for(int i = 0; i < FormInfo.numParticipants; ++i) {
-            Participant participant = buildParticipant(i + 1, valueRange);
-            participants.add(participant);
-        }
-
-        //Create a table from the value range for better workability
-        Table responses = new Table(valueRange);
-
         //Cleanup invalid responses
         Analytics.cleanupData(responses);
+
+        //Extract all participant data from valueRange
+        List<Participant> participants = new ArrayList<>(FormInfo.numParticipants);
+        for(int i = 1; i < FormInfo.numParticipants + 1; ++i) {
+            participants.add(new Participant(i, responses));
+        }
 
         //Test output
         responses.export("output.csv");
@@ -81,32 +77,6 @@ public class Application {
         //Export tables as .csv files
 //        memeQuestionnaire_PivotTableSource.export("./memeQuestionnairePivotTableSource.csv");
 //        demographics_PivotTableSource.export("./demographicPivotTableSource.csv");
-    }
-
-    public static Participant buildParticipant(int which, final ValueRange table) throws IOException {
-        Participant participant = new Participant();
-
-        //Timestamp
-        participant.timestamp = table.getValues().get(which).get(0).toString();
-
-        //Meme Questionnaires
-        for(int i = 0; i < FormInfo.numMemes; ++i) {
-            MemeQuestionnaire memeQuestionnaire = new MemeQuestionnaire();
-
-            for(int j = 0; j < FormInfo.memeQuestionnaireSize; ++j) {
-                memeQuestionnaire.responses.add(j, table.getValues().get(which).get(i * FormInfo.memeQuestionnaireSize + j + 2).toString());
-            }
-            participant.memeQuestionnaires.add(i, memeQuestionnaire);
-        }
-
-        //Demographics
-        Demographics demographics = new Demographics();
-        for(int i = 0; i < FormInfo.demographicSize; ++i) {
-            demographics.responses.add(i, table.getValues().get(which).get(i + FormInfo.demographicOffset).toString());
-        }
-        participant.demographics = demographics;
-
-        return participant;
     }
 
     /**
