@@ -5,7 +5,7 @@ import static Models.MemeQuestionnaire.*;
 
 public class Utility {
 
-    private static String convertResponse(final String response) {
+    public static String convertResponse(final String response) {
         switch (response) {
             case NO:
             case STRONGLY_DISAGREE:

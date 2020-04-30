@@ -1,6 +1,6 @@
 package Core;
-import java.io.*;
 
+import java.io.*;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 public class Table {
@@ -168,6 +168,8 @@ public class Table {
             }
         }
 
+        this.tableArray = extraColumnTableArray;
+
         return extraColumnIndex;
     }
 
@@ -180,8 +182,8 @@ public class Table {
         String[] columnArray = new String[rows];
 
         //Copy the value of each row of the column into the columnArray
-        for(int row = 0; row < rows; ++rows) {
-            columnArray[row] = tableArray[col][row];
+        for(int row = 0; row < rows; ++row) {
+            columnArray[row] = tableArray[row][col];
         }
 
         return columnArray;
