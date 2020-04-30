@@ -34,6 +34,10 @@ public class Table {
         rows = tableArray[0].length;
         cols = tableArray.length;
         this.tableArray = new String[rows][cols];
+
+        for(int i = 0; i < rows; ++rows)
+            System.arraycopy(tableArray[i], 0, this.tableArray[i], 0, cols);
+
     }
 
     public Table(final ValueRange valueRange) {
@@ -41,11 +45,9 @@ public class Table {
         cols = valueRange.getValues().get(0).size();
         tableArray = new String[rows][cols];
 
-        for(int i = 0; i < rows; ++i) {
-            for(int j = 0; j < cols; ++j) {
+        for(int i = 0; i < rows; ++i)
+            for(int j = 0; j < cols; ++j)
                 tableArray[i][j] = valueRange.getValues().get(i).get(j).toString();
-            }
-        }
     }
 
     public void export(final String filepath) throws IOException {
