@@ -1,7 +1,7 @@
 .gradle
 .idea
 build
-output.csv
 tokens
 *.ods
 *.csv
+credentials.json
