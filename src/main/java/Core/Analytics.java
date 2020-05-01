@@ -145,8 +145,3 @@ public class Analytics {
     }
 
 }
-
-/**
- * TODO:
- *  * Generate pivot tables form list of participants
- * **/
