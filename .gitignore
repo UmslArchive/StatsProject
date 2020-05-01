@@ -3,9 +3,6 @@
 build
 output.csv
 tokens
-
 memeQuestionnairePivotTableSource.csv
-
 *.ods
-
 *.csv
