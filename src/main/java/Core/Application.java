@@ -67,16 +67,13 @@ public class Application {
             participants.add(new Participant(i, responses));
         }
 
-        //Test output
-        responses.export("output.csv");
-
         //Create separate pivot table source tables for meme and demographic responses
-//        Table memeQuestionnaire_PivotTableSource = Analytics.createMemeQuestionnairePivotTable(rawData);
-//        Table demographics_PivotTableSource = Analytics.createDemographicPivotTable(rawData);
+        Table pivotTable;
+        pivotTable = Analytics.createMemeQuestionnairePivotTable(participants);
+        pivotTable.export("./memeQuestionnairePivotTableSource.csv");
+        pivotTable = Analytics.createDemographicPivotTable(participants);
+        pivotTable.export("./demographicsPivotTableSource.csv");
 
-        //Export tables as .csv files
-//        memeQuestionnaire_PivotTableSource.export("./memeQuestionnairePivotTableSource.csv");
-//        demographics_PivotTableSource.export("./demographicPivotTableSource.csv");
     }
 
     /**

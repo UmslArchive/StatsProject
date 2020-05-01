@@ -1,10 +1,13 @@
 package Core;
 
+import Models.MemeQuestionnaire;
 import Models.Participant;
 
+import java.text.Normalizer;
 import java.util.List;
 
 public class Analytics {
+    private static final int HEADER_ROW = 1;
 
     public static void cleanupData(Table table) {
         cleanAgeResponses(table);
@@ -12,7 +15,50 @@ public class Analytics {
     }
 
     public static Table createMemeQuestionnairePivotTable(final List<Participant> participantList) {
-        Table pivotTable = new Table();
+        //Allocate table
+        int rows = FormInfo.numParticipants * FormInfo.numMemes * FormInfo.memeQuestionnaireSize + HEADER_ROW;
+        int cols = 5; // Participant#, Timestamp, Meme#, Question#, Response
+        Table pivotTable = new Table(rows, cols);
+
+        //Set header values
+        int row = 0;
+        pivotTable.setValue(row, 0, "Participant #");
+        pivotTable.setValue(row, 1, "Timestamp");
+        pivotTable.setValue(row, 2, "Meme #");
+        pivotTable.setValue(row, 3, "Question #");
+        pivotTable.setValue(row, 4, "Response");
+
+
+        row = 1;
+        String timestamp, response;
+        Participant currentParticipant;
+        MemeQuestionnaire currentQuestionnaire;
+        for(int participant = 0; participant < FormInfo.numParticipants; ++participant) {
+
+            currentParticipant = participantList.get(participant);
+
+            timestamp = currentParticipant.timestamp;
+
+            for(int meme = 0; meme < FormInfo.numMemes; ++meme) {
+
+                currentQuestionnaire = currentParticipant.memeQuestionnaires.get(meme);
+
+                for(int question = 0; question < FormInfo.memeQuestionnaireSize; ++question) {
+
+                    //Get current response
+                    response = currentQuestionnaire.responses.get(question);
+
+                    //Set each column
+                    pivotTable.setValue(row, 0, Integer.toString(participant));
+                    pivotTable.setValue(row, 1, timestamp);
+                    pivotTable.setValue(row, 2, Integer.toString(meme));
+                    pivotTable.setValue(row, 3, Integer.toString(question));
+                    pivotTable.setValue(row, 4, response);
+
+                    ++row;
+                }
+            }
+        }
 
         return pivotTable;
     }
@@ -64,5 +110,5 @@ public class Analytics {
 
 /**
  * TODO:
- *  * Convert 'how often?' responses to integer values. (complete, not tested)
+ *  * Generate pivot tables form list of participants
  * **/
