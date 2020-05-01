@@ -37,9 +37,16 @@ public class Application {
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
+
+    /**
+     * Go to https://developers.google.com/sheets/api/quickstart/java and retrieve your credentials.json file.
+     * Copy it into the resources directory
+     */
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
-    /*** GRAB THE SPREADSHEET ID FROM THE URL OF THE GOOGLE SHEET YOU WISH TO USE ***/
+    /**
+     *  GRAB THE SPREADSHEET ID FROM THE URL OF THE GOOGLE SHEET YOU WISH TO USE
+     */
     private static final String spreadsheetId = "1RLBcejItcqzfSPSW79qHG9Mqzg7VAPV0fGqZs6Wx8mg";
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
