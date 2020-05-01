@@ -189,6 +189,7 @@ public class Table {
         }
 
         this.tableArray = extraColumnTableArray;
+        this.cols++;
 
         return extraColumnIndex;
     }
