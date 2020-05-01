@@ -24,6 +24,15 @@ public class Table {
         tableArray = new String[DEFAULT_TABLE_SZ][DEFAULT_TABLE_SZ];
     }
 
+    public Table(Table t) {
+        this.rows =  t.rows;
+        this.cols = t.cols;
+        this.tableArray = new String[this.rows][];
+
+        for(int i = 0; i < rows; ++i)
+            this.tableArray[i] = t.tableArray[i].clone();
+    }
+
     public Table(final int rows, final int cols) {
         this.rows = rows;
         this.cols = cols;
@@ -64,6 +73,15 @@ public class Table {
 
             for(int i = 0; i < rows; ++i) {
                 for(int j = 0; j < cols; ++j) {
+
+                    //Handle null tableArray[][] values
+                    if(tableArray[i][j] == null) {
+                        String formatError = "ERROR: tableArray[%d][%d] is null\n";
+                        System.out.println(String.format(formatError, i, j));
+                        fout.close();
+                        return;
+                    }
+
                     if(j != cols -1)
                         fout.write((tableArray[i][j] + DELIMITER).getBytes());
                     else
@@ -115,7 +133,7 @@ public class Table {
 
         return tableArray[row][col];
     }
-    public void setValue(int row, int col, String value) {
+    public void setValue(int row, int col, final String value) {
         if(row < 0 || row > rows - 1 || col < 0 || col > cols - 1) {
             System.out.println("ERROR: Invalid table coordinate selection");
             return;
